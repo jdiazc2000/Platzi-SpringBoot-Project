@@ -1,7 +1,10 @@
 package com.platzi.persistence.entity;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +29,9 @@ public class cliente {
 	    @Column(name = "correo_electronico", length = 70, nullable = true)
 	    private String correoElectronico;
 
+	    @OneToMany(mappedBy = "cliente")
+	    private List<Compra> compra;
+	    
 	    // Getters y Setters
 	    public String getId() {
 	        return id;

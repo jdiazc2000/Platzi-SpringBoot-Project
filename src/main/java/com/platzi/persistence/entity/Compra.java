@@ -1,17 +1,13 @@
 package com.platzi.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "compras") 
-public class compra {
+public class Compra {
 	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(name = "id_compra", nullable = false)
@@ -31,6 +27,13 @@ public class compra {
 
 	    @Column(name = "estado", length = 1, nullable = true)
 	    private String estado;
+	    
+	    @ManyToOne
+		@JoinColumn(name = "id_cliente", insertable = false, updatable = false)
+	    private cliente cliente;
+
+		@OneToMany(mappedBy = "compra", cascade = {CascadeType.ALL})
+		private List<compraProducto> productos;
 
 	    // Getters y Setters
 	    public Integer getIdCompra() {
@@ -80,4 +83,22 @@ public class compra {
 	    public void setEstado(String estado) {
 	        this.estado = estado;
 	    }
-}
+
+		public List<compraProducto> getProductos() {
+			return productos;
+		}
+
+
+
+		public void setProductos(List<compraProducto> productos) {
+			this.productos = productos;
+		}
+
+		public com.platzi.persistence.entity.cliente getCliente() {
+			return cliente;
+		}
+
+		public void setCliente(com.platzi.persistence.entity.cliente cliente) {
+			this.cliente = cliente;
+		}
+	}
